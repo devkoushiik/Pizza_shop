@@ -1,6 +1,7 @@
 import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 import { createOrder } from "../../services/apiRestaurant";
 import Button from "../../ui/Button";
+import { useSelector } from "react-redux";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -33,6 +34,7 @@ const fakeCart = [
 ];
 
 function CreateOrder() {
+  const username = useSelector((s) => s.user.username);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -47,11 +49,12 @@ function CreateOrder() {
 
       <Form method="POST">
         <div className="mb-5 flex  flex-col gap-2 sm:flex-row sm:items-center">
-          <label className="sm:basis-40">First Name</label>
+          <label className="sm:basis-40">Name</label>
           <input
             className="input w-full"
             type="text"
             name="customer"
+            defaultValue={username}
             required
           />
         </div>
@@ -80,7 +83,7 @@ function CreateOrder() {
           </div>
         </div>
 
-        <div className="mb-12 flex items-center gap-5">
+        <div className="mb-6 flex items-center gap-5">
           <input
             className="mt-4  h-4 w-4 accent-yellow-400 sm:h-6 sm:w-6"
             type="checkbox"
@@ -89,13 +92,14 @@ function CreateOrder() {
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
-          <label htmlFor="priority" className="mt-23 ml-3 mt-3.5 text-sm">
+          <label htmlFor="priority" className="ml-3 mt-3.5 text-sm">
             Want to yo give your order priority?
           </label>
         </div>
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+
           <Button type="primary" disabled={isSubmitting}>
             {isSubmitting ? "Placing order..." : "Order now"}
           </Button>
@@ -108,7 +112,6 @@ function CreateOrder() {
 export async function action({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-  console.log(data);
 
   const order = {
     ...data,
