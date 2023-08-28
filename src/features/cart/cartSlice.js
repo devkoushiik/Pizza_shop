@@ -58,7 +58,7 @@ export const {
 
 export default cartSlice.reducer;
 
-// these functions are for useSelectorHook parameter
+// these functions are for useSelectorHook parameter, react recommend us to separate this function.
 export const getCart = (state) => state.cart.cart;
 
 export const getTotalCartQuantity = (state) =>

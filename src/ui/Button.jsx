@@ -7,6 +7,7 @@ const Button = ({ children, disabled, to, type, onClick }) => {
   const style = {
     primary: base + "px-5 py-2 sm-px-6 sm:py-3 sm:font-bold lg:font-lg",
     small: base,
+    round: base + " py-3",
   };
 
   if (to)
