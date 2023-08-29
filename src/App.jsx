@@ -3,6 +3,8 @@ import Home from "./ui/Home";
 
 import Menu, { loader as menuLoader } from "./features/menu/Menu";
 
+import { action as updateOrderAction } from "./features/order/UpdateOrder";
+
 import Cart from "./features/cart/Cart";
 import CreateOrder, {
   action as createOrderAction,
@@ -37,6 +39,7 @@ const router = createBrowserRouter([
         element: <Order />,
         loader: orderLoader,
         errorElement: <Error />,
+        action: updateOrderAction,
       },
     ],
   },
@@ -45,4 +48,5 @@ const router = createBrowserRouter([
 const App = () => {
   return <RouterProvider router={router} />;
 };
+
 export default App;
